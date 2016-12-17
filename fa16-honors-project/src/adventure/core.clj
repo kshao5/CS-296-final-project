@@ -151,26 +151,6 @@ for a game or something."
       (do (println"you do not have the car, sorry we cannot give the ticket")player))))
 
 
-
-
-(defn flashlight [player]
-    (let [room (get-in player [:location])
-          invent (player :inventory)]
-    (let [item (get-in the-map [room :contents])]
-      (if (and (= room :Basement) (contains? invent :Flashlight))
-        (do(println "You see a fireplace across the room. Go to fireplace? (fireplace)"))
-        player)))player)
-
-
-(defn treat [player]
-    (let [location (player :location)
-          invent (player :inventory)
-          item (the-map [location :contents])]
-      (if (and (= location :Dog_room) (contains? invent :dog_treat))
-        (do(println "The dog moves out of the way and you find a metal hook. Pickup hook?")
-        (update-in player [:inventory] #(conj % item)) player)
-        (do (println "You need to be in the dog room and have the treat!") player))))
-
 (defn eat [player]
   (let [location (get-in player [:location])
        curr-money (player :money)]
@@ -248,9 +228,6 @@ for a game or something."
   (do (println (str "hp is " (-> player :hp) ". " "location is " (-> player :location) ". " "you have visited: "
                     (-> player :seen) ". " "you now have "(-> player :inventory) ". " "you now have " (-> player :money) " dollars. "
                     "you now have "(-> player :book) " books. " "you now have "(-> player :worktime) " working hours. "))player))
-
-(defn tock [player]
-  (update-in player [:tick] inc))
 
 (defn take-exam [player]
   (let [curr-hp (player :hp)]
